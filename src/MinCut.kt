@@ -8,63 +8,75 @@ class MinCut {
         var mergeNode: Int = 1
         var removeNode: Int = 1 //val is 3
 
-        fun minCut(graph: HashMap<Int, ArrayList<Int>>) {
-        //fun minCut(graph: HashMap<Int, ArrayList<Int>>): Int {
-            println("graph: " + graph.toString())
-            mergeNode(graph, mergeNode, removeNode)
-            mergeNode(graph, 2, 2)//val is 4
-            println("graph: " + graph.toString())
+        fun minCut(graph: HashMap<Int, ArrayList<Int>>): Int {
+            return mergeNode(graph)
+            //mergeNode(graph, mergeNode, removeNode)
+            //mergeNode(graph, 2, 2)//val is 4
+            //println("graph: " + graph.toString())
             //return graph[0].size - 1
         }
 
         /*
         merge chosen adjacent node into chosen node to merge
         */
-        private fun mergeNode(graph: HashMap<Int, ArrayList<Int>>, mergeNodeNum: Int, adjacentNodeNum: Int) {
-            //todo: choose random node and adjacent node to removeNode
-            var randomNodeNum = getRandomNodeNum(Random().nextInt(graph.size + 1))
-            var randomAdjacentNodeNum = Random().nextInt(graph.getValue(randomNodeNum).size)
-            println("randomNode: " + randomNodeNum + "|" + graph.getValue(randomNodeNum) + " " + " randomAdjacentNodeNum: " + randomAdjacentNodeNum)
-            //todo: set while loop to only run when there are more than 2 nodes
+        private fun mergeNode(graph: HashMap<Int, ArrayList<Int>>): Int {
+            println("graph: " + graph.toString())
+            while(graph.size > 2) {
+                var randomNodeNum = getRandomNodeNum(graph) //getRandomNodeNum(Random().nextInt(graph.size + 1))
+                println("randomNodeNum: " + randomNodeNum)
+                var randomAdjacentNodeNum = Random().nextInt(graph.getValue(randomNodeNum).size)
+                println("randomNode: " + randomNodeNum + "|" + graph.getValue(randomNodeNum) + " " + " randomAdjacentNodeNum: " + randomAdjacentNodeNum)
 
-            //todo: run n - 1 times
-            //todo: file input
+                var mergeNode = graph.getValue(randomNodeNum)
+                var removeNodeNum = mergeNode[randomAdjacentNodeNum]
 
-            var mergeNode = graph.getValue(mergeNodeNum)
-            var removeNodeNum = mergeNode[adjacentNodeNum]
+                println("merge: " + mergeNode + " remove: " + removeNodeNum)
 
-            println("merge: " + mergeNode + " remove: " + removeNodeNum)
+                for (i in 0..graph.getValue(removeNodeNum).size - 1) {
+                    println("merge: " + graph.getValue(removeNodeNum)[i])
 
-            for (i in 0 .. graph.getValue(removeNodeNum).size - 1) {
-                println("merge: " + graph.getValue(removeNodeNum)[i])
-
-                //add edges from chosen removed node into chosen merged node
-                if (graph.getValue(removeNodeNum)[i] != mergeNodeNum) {
-                    mergeNode.add(graph.getValue(removeNodeNum)[i])
+                    //add edges from chosen removed node into chosen merged node
+                    if (graph.getValue(removeNodeNum)[i] != randomNodeNum) {
+                        mergeNode.add(graph.getValue(removeNodeNum)[i])
+                    }
                 }
+
+                //replace occurence of edges for chosen removed node with chosen merged node
+                for (node in graph) {
+                    if (node.key != randomNodeNum && node.value.contains(removeNodeNum)) {
+                        node.value[node.value.indexOf(removeNodeNum)] = randomNodeNum
+                    }
+                }
+
+                //remove occurence of chosen removed node from chosen merged node
+                mergeNode.removeAt(mergeNode.indexOf(removeNodeNum))
+
+                //remove chosen removed node from graph
+                graph.remove(removeNodeNum)
+                println("graph: " + graph.toString())
             }
 
-            //replace occurence of edges for chosen removed node with chosen merged node
-            for (node in graph){
-                if (node.key != mergeNodeNum && node.value.contains(removeNodeNum)) {
-
-                    node.value[node.value.indexOf(removeNodeNum)] = mergeNodeNum
-                }
-            }
-
-            //remove occurence of chosen removed node from chosen merged node
-            mergeNode.removeAt(mergeNode.indexOf(removeNodeNum))
-
-            //remove chosen removed node from graph
-            graph.remove(removeNodeNum)
+            return getMinEdgesLeft(graph)
         }
 
-        private fun getRandomNodeNum(random: Int): Int {
-            if (random == 0) {
-                return 1
-            } else {
+        private fun getRandomNodeNum(graph: HashMap<Int, ArrayList<Int>>): Int {
+            var random = Random().nextInt(graph.size + 1)
+            if (graph.containsKey(random)){
                 return random
+            } else {
+             return getRandomNodeNum(graph)
             }
+        }
+
+        private fun getMinEdgesLeft(graph: HashMap<Int, ArrayList<Int>>): Int {
+            var min = 1000000000
+            for (l in graph.values) {
+                println("l.size: " + l.size)
+                if (l.size < min) {
+                    min = l.size
+                }
+            }
+            return min
         }
 
     }
