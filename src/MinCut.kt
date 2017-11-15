@@ -12,7 +12,7 @@ class MinCut {
         //fun minCut(graph: HashMap<Int, ArrayList<Int>>): Int {
             println("graph: " + graph.toString())
             mergeNode(graph, mergeNode, removeNode)
-            //mergeNode(graph, 2, 4)
+            mergeNode(graph, 2, 2)//val is 4
             println("graph: " + graph.toString())
             //return graph[0].size - 1
         }
@@ -22,10 +22,9 @@ class MinCut {
         */
         private fun mergeNode(graph: HashMap<Int, ArrayList<Int>>, mergeNodeNum: Int, adjacentNodeNum: Int) {
             //todo: choose random node and adjacent node to removeNode
-            /*var randomNode = Random().nextInt(graph.size)
-            var randomAdjacentNode = Random().nextInt(graph[randomNode].size)
-            println("graphSize: " + (graph.size - 1) + " randomGraph: " + randomNode
-                    + " nodeSize: " + (graph[randomNode].size - 1) + " randomAdjacentNode: " + randomAdjacentNode)*/
+            var randomNodeNum = getRandomNodeNum(Random().nextInt(graph.size + 1))
+            var randomAdjacentNodeNum = Random().nextInt(graph.getValue(randomNodeNum).size)
+            println("randomNode: " + randomNodeNum + "|" + graph.getValue(randomNodeNum) + " " + " randomAdjacentNodeNum: " + randomAdjacentNodeNum)
             //todo: set while loop to only run when there are more than 2 nodes
 
             //todo: run n - 1 times
@@ -58,6 +57,14 @@ class MinCut {
 
             //remove chosen removed node from graph
             graph.remove(removeNodeNum)
+        }
+
+        private fun getRandomNodeNum(random: Int): Int {
+            if (random == 0) {
+                return 1
+            } else {
+                return random
+            }
         }
 
     }
