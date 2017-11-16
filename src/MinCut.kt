@@ -5,17 +5,17 @@ import kotlin.collections.HashMap
 class MinCut {
 
     companion object {
-        var mergeNode: Int = 1
-        var removeNode: Int = 1 //val is 3
 
         fun minCut(graph: HashMap<Int, ArrayList<Int>>): Int {
-            var minCut = Int.MAX_VALUE
+            //todo: add back in
+            /*var minCut = Int.MAX_VALUE
             for(i in 1 .. graph.size - 1){
                 var result = mergeNode(graph)
                 println("RESULT FROM TRIAL " + i + " : " + result)
                 minCut = Math.min(result, minCut)
             }
-            return minCut
+            return minCut*/
+            return mergeNode(graph)
         }
 
         /*
@@ -25,15 +25,13 @@ class MinCut {
             println("graph: " + graph.toString())
             while(graph.size > 2) {
                 var randomNodeNum = getRandomNodeNum(graph) //getRandomNodeNum(Random().nextInt(graph.size + 1))
-                println("randomNodeNum: " + randomNodeNum)
                 var randomAdjacentNodeNum = Random().nextInt(graph.getValue(randomNodeNum).size)
                 println("randomNode: " + randomNodeNum + "|" + graph.getValue(randomNodeNum) + " " + " randomAdjacentNodeNum: " + randomAdjacentNodeNum)
 
                 var mergeNode = graph.getValue(randomNodeNum)
                 var removeNodeNum = mergeNode[randomAdjacentNodeNum]
 
-                println("merge: " + mergeNode)
-                println("remove: " + removeNodeNum)
+                println("removeNode: " + graph.getValue(removeNodeNum))
 
                 for (i in 0..graph.getValue(removeNodeNum).size - 1) {
                     println("merge: " + graph.getValue(removeNodeNum)[i])
@@ -43,6 +41,8 @@ class MinCut {
                         mergeNode.add(graph.getValue(removeNodeNum)[i])
                     }
                 }
+
+                println()
 
                 //replace occurence of edges for chosen removed node with chosen merged node
                 for (node in graph) {
