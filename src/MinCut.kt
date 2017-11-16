@@ -32,7 +32,8 @@ class MinCut {
                 var mergeNode = graph.getValue(randomNodeNum)
                 var removeNodeNum = mergeNode[randomAdjacentNodeNum]
 
-                println("merge: " + mergeNode + " remove: " + removeNodeNum)
+                println("merge: " + mergeNode)
+                println("remove: " + removeNodeNum)
 
                 for (i in 0..graph.getValue(removeNodeNum).size - 1) {
                     println("merge: " + graph.getValue(removeNodeNum)[i])
