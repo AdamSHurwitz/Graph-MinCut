@@ -9,11 +9,13 @@ class MinCut {
         var removeNode: Int = 1 //val is 3
 
         fun minCut(graph: HashMap<Int, ArrayList<Int>>): Int {
-            return mergeNode(graph)
-            //mergeNode(graph, mergeNode, removeNode)
-            //mergeNode(graph, 2, 2)//val is 4
-            //println("graph: " + graph.toString())
-            //return graph[0].size - 1
+            var minCut = Int.MAX_VALUE
+            for(i in 1 .. graph.size - 1){
+                var result = mergeNode(graph)
+                println("RESULT FROM TRIAL " + i + " : " + result)
+                minCut = Math.min(result, minCut)
+            }
+            return minCut
         }
 
         /*
@@ -69,12 +71,10 @@ class MinCut {
         }
 
         private fun getMinEdgesLeft(graph: HashMap<Int, ArrayList<Int>>): Int {
-            var min = 1000000000
+            var min = Int.MAX_VALUE
             for (l in graph.values) {
                 println("l.size: " + l.size)
-                if (l.size < min) {
-                    min = l.size
-                }
+                min = Math.min(l.size, min)
             }
             return min
         }
