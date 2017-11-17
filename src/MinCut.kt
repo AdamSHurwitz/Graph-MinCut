@@ -46,16 +46,13 @@ class MinCut {
 
                 //replace occurence of edges for chosen removed node with chosen merged node
                 for (node in graph) {
-                    //todo: consider more than one instance
-                    println("node: " + node)
-                    if (node.key != randomNodeNum && node.value.contains(removeNodeNum)) {
-                        //println("removeNodeNums: " + node.value)
-                        node.value[node.value.indexOf(removeNodeNum)] = randomNodeNum
+                    while(node.key != randomNodeNum && node.value.contains(removeNodeNum)){
+                        var removeNodeNumIndex = node.value.indexOf(removeNodeNum)
+                        node.value[removeNodeNumIndex] = randomNodeNum
                     }
                 }
 
                 //remove occurence of chosen removed node from chosen merged node
-                //todo: consider more than one instance
                 while(mergeNode.contains(removeNodeNum)){
                     var removeNodeNumIndex = mergeNode.indexOf(removeNodeNum)
                     mergeNode.removeAt(removeNodeNumIndex)
