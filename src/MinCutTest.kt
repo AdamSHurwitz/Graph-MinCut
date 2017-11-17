@@ -14,7 +14,6 @@ object MinCutTest {
         test(hashMap)
     }
 
-    //todo: file input search for FIRST SPACE
     fun test(graph: HashMap<Int, ArrayList<Int>>) {
         var hashMap = HashMap<Int, ArrayList<Int>>()
 
@@ -41,7 +40,7 @@ object MinCutTest {
                 hashMap.put(row[0], ArrayList(row.subList(1, row.size)))
             }
             //print(hashMap)
-            println()
+            //println()
         }
 
         //println("The minimum cut of the graph is " + MinCut.minCut(hashMap))
