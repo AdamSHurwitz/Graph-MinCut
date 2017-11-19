@@ -26,7 +26,6 @@ class MinCut {
                 var removeNodeNum = mergeNode[randomAdjacentNodeNum]
 
                 for (i in 0..graph.getValue(removeNodeNum).size - 1) {
-
                     //add edges from chosen removed node into chosen merged node
                     if (graph.getValue(removeNodeNum)[i] != randomNodeNum) {
                         mergeNode.add(graph.getValue(removeNodeNum)[i])
@@ -49,7 +48,6 @@ class MinCut {
 
                 //remove chosen removed node from graph
                 graph.remove(removeNodeNum)
-                println("graph: " + graph)
             }
 
             return getMinEdgesLeft(graph)

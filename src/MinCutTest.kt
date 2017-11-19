@@ -6,17 +6,14 @@ import kotlin.collections.ArrayList
 object MinCutTest {
     @JvmStatic
     fun main(args: Array<String>) {
-        val hashMap = HashMap<Int, ArrayList<Int>>()
-        hashMap.put(1, arrayListOf(2, 3))
-        hashMap.put(2, arrayListOf(1, 3, 4))
-        hashMap.put(3, arrayListOf(1, 2, 4))
-        hashMap.put(4, arrayListOf(2, 3))
-        test(hashMap)
-    }
+        val hashMapPrototype = HashMap<Int, ArrayList<Int>>()
+        hashMapPrototype.put(1, arrayListOf(2, 3))
+        hashMapPrototype.put(2, arrayListOf(1, 3, 4))
+        hashMapPrototype.put(3, arrayListOf(1, 2, 4))
+        hashMapPrototype.put(4, arrayListOf(2, 3))
+        test(hashMapPrototype)
 
-    fun test(graph: HashMap<Int, ArrayList<Int>>) {
         var hashMap = HashMap<Int, ArrayList<Int>>()
-
         File("src/kargerMinCut.txt").inputStream().bufferedReader().useLines { lines ->
             lines.forEach {
                 var row = ArrayList<Int>()
@@ -40,6 +37,10 @@ object MinCutTest {
                 hashMap.put(row[0], ArrayList(row.subList(1, row.size)))
             }
         }
-        println("The minimum cut of the graph is " + MinCut.minCut(hashMap))
+        test(hashMap)
+    }
+
+    fun test(graph: HashMap<Int, ArrayList<Int>>) {
+        println("The minimum cut of the graph is " + MinCut.minCut(graph))
     }
 }
