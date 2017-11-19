@@ -39,11 +39,7 @@ object MinCutTest {
                 }
                 hashMap.put(row[0], ArrayList(row.subList(1, row.size)))
             }
-            //print(hashMap)
-            //println()
         }
-
-        //println("The minimum cut of the graph is " + MinCut.minCut(hashMap))
-        println("The minimum cut of the graph is " + MinCut.minCut(graph))
+        println("The minimum cut of the graph is " + MinCut.minCut(hashMap))
     }
 }
